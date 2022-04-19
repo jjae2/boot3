@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="com.prac.boot3.board.BoardMapper">
+   <!-- boardfiles  -->
+   <select id="getFileDetail" parameterType="BoardFilesVO" resultType="BoardFilesVO">
+      SELECT * FROM BOARDFILES WHERE NUM=#{num}
+   </select>
+   <select id="getFileList" resultType="BoardFilesVO">
+      SELECT * FROM BOARDFILES
+   </select>
+   <insert id="setFileAdd" parameterType="BoardFilesVO">
+      INSERT INTO BOARDFILES(FILENUM,NUM,FILENAME,ORINAME)
+      VALUES(NULL,#{num},#{fileName}, #{oriName});   
+   </insert>
+   <delete id="setFileDelete" parameterType="BoardFilesVO">
+      DELETE FROM BOARDFILES WHERE NUM=#{num}
+   </delete>
+   
+
+   <!-- board  -->
+   <select id="getDetail" parameterType="BoardVO" resultType="BoardVO">
+      SELECT * FROM BOARD   WHERE NUM=#{num}
+   </select>
+   
+   <select id="getTotalCount" parameterType="Pager" resultType="Long" >
+      SELECT COUNT(NUM) FROM BOARD
+      WHERE 
+      <choose>
+             <when test="kind=='col1'">
+                 TITLE
+             </when>
+             <when test="kind=='col2'">
+                 WRITER
+             </when>
+             <otherwise>
+                 CONTENTS
+             </otherwise>
+          </choose>
+          LIKE CONCAT('%', #{search},'%') 
+    
+   </select>
+   
+   <select id="getList" parameterType="Pager" resultType="BoardVO" >
+      SELECT * FROM BOARD 
+      WHERE NUM>0 
+          AND <choose>
+             <when test="kind=='col1'">
+                 TITLE
+             </when>
+             <when test="kind=='col2'">
+                 WRITER
+             </when>
+             <otherwise>
+                 CONTENTS
+             </otherwise>
+          </choose>
+          LIKE CONCAT('%', #{search},'%') 
+          ORDER BY NUM DESC
+      LIMIT #{startRow},#{perPage}
+   </select>
+   
+   <insert id="setAdd" parameterType="BoardVO">
+      INSERT INTO BOARD(NUM, TITLE, WRITER, CONTENTS, HIT, REGDATE, REF, STEP, DEPTH, CATEGORY)
+      VALUES(NULL, #{title},#{writer},#{contents}, 0, NOW(), 0,0,0,1);
+   </insert>
+   
+   <update id="setUpdate" parameterType="BoardVO">
+      UPDATE BOARD SET CONTENTS=#{contents} WHERE NUM=#{num};
+   </update>
+   
+   <delete id="setDelete" parameterType="BoardVO">
+      DELETE FROM BOARD WHERE NUM=#{num};
+   </delete>
+      
+</mapper>
