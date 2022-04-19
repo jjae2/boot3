@@ -15,16 +15,15 @@ class BoardMapperTest {
 	@Autowired
 	private BoardMapper boardMapper;
 
-	// @Test
+	 @Test
 	void test() throws Exception {
 		BoardVO boardVO = new BoardVO();
-		boardVO.setNum(3L);
+		boardVO.setNum(114L);
 		boardVO = boardMapper.getDetail(boardVO);
-		System.out.println(boardVO.toString());
 		assertNotNull(boardVO);
 	}
 
-	@Test
+	//@Test
 	void getListTest() throws Exception{
 	      Pager pager = new Pager();
 	      pager.makeRow();
@@ -73,8 +72,8 @@ class BoardMapperTest {
 	// @Test
 	void setFileAddTest() throws Exception {
 		BoardFilesVO boardFilesVO = new BoardFilesVO();
-		boardFilesVO.setFilename("filename");
-		boardFilesVO.setOriname("oriname");
+		boardFilesVO.setFileName("filename");
+		boardFilesVO.setOriName("oriname");
 		boardFilesVO.setNum(3L);
 		int result = boardMapper.setFileAdd(boardFilesVO);
 		assertEquals(1, result);

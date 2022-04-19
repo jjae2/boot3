@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -37,6 +38,14 @@ public class BoardController {
 
       return mv;
    }
+   @GetMapping("detail")
+   public ModelAndView getDetail(BoardVO boardVO) throws Exception{
+	   ModelAndView mv =new ModelAndView();
+	   boardVO =boardService.getDetail(boardVO);
+	   mv.addObject("dto",boardVO);
+	   mv.setViewName("board/detail");
+	   return mv;
+   }
    @GetMapping("add")
    public ModelAndView setAdd(BoardVO boardVO, ModelAndView mv)throws Exception{
       
@@ -51,8 +60,28 @@ public class BoardController {
     	  System.out.println(f.getOriginalFilename());
       }
 	   
-	   int result = boardService.setAdd(boardVO);
+	   int result = boardService.setAdd(boardVO,files);
       return "redirect:./list";
    }
-   
+   @GetMapping("update")
+   public ModelAndView setUpdate(BoardVO boardVO)throws Exception{
+	   ModelAndView mv =new ModelAndView();
+	  boardVO = boardService.getDetail(boardVO);
+	   mv.addObject("dto",boardVO);
+	   mv.setViewName("board/update");
+	   
+	   return mv;
+   }
+   @PostMapping("update")
+   public String setUpdate(BoardVO boardVO,Model model)throws Exception{
+	   int result=boardService.setUpdate(boardVO);
+	   return "redirect:./list";
+   }
+   @GetMapping("delete")
+   public ModelAndView setDelete(BoardVO boardVO)throws Exception{
+	   int result= boardService.setDelete(boardVO);
+	   ModelAndView mv =new ModelAndView();
+	   mv.setViewName("redirect:./list");
+	   return mv;
+   }
 }

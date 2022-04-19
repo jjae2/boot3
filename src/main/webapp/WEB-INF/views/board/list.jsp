@@ -38,9 +38,9 @@
 			</thead>
 			<tbody>
 			<c:forEach items="${list}" var="vo">
-				<tr>
+				<tr> 
 					<td>${vo.num}</td>
-					<td>${vo.title}</td>
+					<td><a href="./detail?num=${vo.num}">${vo.title}</a></td>
 					<td>${vo.writer}</td>
 					<td>${vo.hit}</td>
 					<td>${vo.regDate}</td>
@@ -82,8 +82,8 @@
 				<div class="col-4 me-2">
 				<select name="kind" class="form-select " aria-label="Default select example">
 				  <option value="col1">Title</option>
-				  <option value="col2">Contents</option>
-				  <option value="col3">Writer</option>
+				  <option value="col2">Writer</option>
+				  <option value="col3">Contents</option>
 				</select>
 				</div>
 				<div class="col-6 me-2">
