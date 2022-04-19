@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.prac.boot3.util.Pager;
@@ -44,8 +45,13 @@ public class BoardController {
       return mv;
    }
    @PostMapping("add")
-   public String setAdd(BoardVO boardVO) throws Exception{
-      int result = boardService.setAdd(boardVO);
+   public String setAdd(BoardVO boardVO,MultipartFile[] files ) throws Exception{
+      //업로드시 파일명 출력
+	   for(MultipartFile f : files) {
+    	  System.out.println(f.getOriginalFilename());
+      }
+	   
+	   int result = boardService.setAdd(boardVO);
       return "redirect:./list";
    }
    

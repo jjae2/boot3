@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.prac.boot3.util.Pager;
 
@@ -23,7 +24,8 @@ public class BoardService {
 
 
    //insert : setAdd
-   public int setAdd(BoardVO boardVO) throws Exception {
+   public int setAdd(BoardVO boardVO,MultipartFile[] files) throws Exception {
+	   //1.file을 hdd에 저장
       return boardMapper.setAdd(boardVO);
    }
    

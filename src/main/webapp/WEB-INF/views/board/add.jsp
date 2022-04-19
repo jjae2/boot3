@@ -22,7 +22,7 @@
 	
 	
 	<div class="row mt-4">
-		<form action="add" method="post">
+		<form action="add" method="post" enctype="multipart/form-data">
 		  <div class="row mb-3">
 		    <label for="title" class="col-sm-2 col-form-label">Title</label>
 		    <div class="col-sm-10">
@@ -41,7 +41,19 @@
 		      <textarea name="contents" class="form-control" id="contents"></textarea>
 		    </div>
 		  </div>
-		 
+		   <div class="row mb-3">
+		    <label for="writer" class="col-sm-2 col-form-label">Writer</label>
+		    <div class="col-sm-10">
+		      <input type="file" name="files" class="form-control" id="writer">
+		    </div>
+		  </div>
+		   <div class="row mb-3">
+		    <label for="writer" class="col-sm-2 col-form-label">Writer</label>
+		    <div class="col-sm-10">
+		      <input type="file" name="files" class="form-control" id="writer">
+		    </div>
+		  </div>
+		  
 		  <button type="submit" class="btn btn-primary">Write</button>
 		</form>
 	
