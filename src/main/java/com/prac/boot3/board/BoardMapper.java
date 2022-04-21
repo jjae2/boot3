@@ -23,7 +23,7 @@ public interface BoardMapper {
    //detail : getDetail
    public BoardVO getDetail(BoardVO boardVO) throws Exception;
 
-   //list : getList
+   //list : gettoal
    public Long getTotalCount(Pager pager) throws Exception;
    //list : getList
    public List<BoardVO> getList(Pager pager) throws Exception;

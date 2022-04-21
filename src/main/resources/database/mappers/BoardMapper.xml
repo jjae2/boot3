@@ -7,14 +7,14 @@
 <mapper namespace="com.prac.boot3.board.BoardMapper">
    <!-- boardfiles  -->
    <select id="getFileDetail" parameterType="BoardFilesVO" resultType="BoardFilesVO">
-      SELECT * FROM BOARDFILES WHERE NUM=#{num}
+      SELECT * FROM BOARDFILES WHERE FILENUM=#{fileNum}
    </select>
    <select id="getFileList" resultType="BoardFilesVO">
       SELECT * FROM BOARDFILES
    </select>
    <insert id="setFileAdd" parameterType="BoardFilesVO">
       INSERT INTO BOARDFILES(FILENUM,NUM,FILENAME,ORINAME)
-      VALUES(NULL,#{num},#{fileName}, #{oriName});   
+      VALUES(NULL,#{num},#{fileName}, #{oriName})  
    </insert>
    <delete id="setFileDelete" parameterType="BoardFilesVO">
       DELETE FROM BOARDFILES WHERE NUM=#{num}
@@ -88,15 +88,15 @@
    
    <insert id="setAdd" parameterType="BoardVO" useGeneratedKeys="true" keyProperty="num">
       INSERT INTO BOARD(NUM, TITLE, WRITER, CONTENTS, HIT, REGDATE, REF, STEP, DEPTH, CATEGORY)
-      VALUES(#{num}, #{title},#{writer},#{contents}, 0, NOW(), 0,0,0,1);
+      VALUES(#{num}, #{title},#{writer},#{contents}, 0, NOW(), 0,0,0,1)
    </insert>
    
    <update id="setUpdate" parameterType="BoardVO">
-      UPDATE BOARD SET CONTENTS=#{contents} WHERE NUM=#{num};
+      UPDATE BOARD SET CONTENTS=#{contents} WHERE NUM=#{num}
    </update>
    
    <delete id="setDelete" parameterType="BoardVO">
-      DELETE FROM BOARD WHERE NUM=#{num};
+      DELETE FROM BOARD WHERE NUM=#{num}
    </delete>
       
 </mapper>

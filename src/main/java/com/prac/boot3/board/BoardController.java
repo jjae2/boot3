@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.prac.boot3.util.FileVO;
 import com.prac.boot3.util.Pager;
 
 @Controller
@@ -25,7 +26,18 @@ public class BoardController {
    public String getBoard() {
       return "board";
    }
-
+   @GetMapping("fileDown")
+   public ModelAndView getFileDown(BoardFilesVO boardFilesVO)throws Exception{
+	   ModelAndView mv = new ModelAndView();
+	   boardFilesVO=boardService.getFileDetail(boardFilesVO);
+	   mv.addObject("fileVO",boardFilesVO);
+	   //fileDown 에서 (FileVO)model.get("fileVO"); fileVO로 이용
+	   mv.setViewName("fileDown");
+	   //Bean(클래스)이름과 동일하게 =fileDown
+	   return mv;
+	 
+   }
+   
    @GetMapping("list")
    public ModelAndView getList(Pager pager)throws Exception{
       ModelAndView mv = new ModelAndView();

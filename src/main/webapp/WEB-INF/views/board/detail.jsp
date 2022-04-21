@@ -14,6 +14,7 @@
 <div class="card" style="width: 18rem;">
 <c:forEach items="${dto.boardFilesVO}" var="bf">
   <img src="../resources/upload/board/${bf.fileName}" class="card-img-top" alt="...">
+  <p class="card-text"><a href="./fileDown?fileNum=${bf.fileNum}">${bf.oriName}</a></p>
   </c:forEach>
   <div class="card-body">
     <p class="card-text">${dto.title}</p>

@@ -16,6 +16,11 @@ public class BoardService {
    @Autowired
    private FileManager fileManager;
    
+   //file
+   public BoardFilesVO getFileDetail(BoardFilesVO boardFilesVO)throws Exception{
+	   return boardMapper.getFileDetail(boardFilesVO);
+   }
+  
    //list : getList
    public List<BoardVO> getList(Pager pager)throws Exception{
       pager.makeRow();
@@ -23,7 +28,7 @@ public class BoardService {
       
       return boardMapper.getList(pager);
    }
-   //get : detail
+   //detail : getdetail
    
 	public BoardVO getDetail(BoardVO boardVO) throws Exception {
 		return boardMapper.getDetail(boardVO);
