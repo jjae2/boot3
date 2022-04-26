@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> <!-- 써줘야함 -->
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -51,16 +51,67 @@
          </button>
       </div>
    </div>
+      <div class="container">
+      <input type="text" id="v1">
+      <input type="checkbox" class="num" name="num" value="a">
+      <input type="checkbox" class="num" name="num" value="b">
+      <input type="checkbox" class="num" name="num" value="c">
+      <input type="checkbox" class="num" name="num" value="d">
+     <button id="btn1">GET</button>
+     <button id="btn2">POST</button>
+     <button id="btn3">AJAX</button>
+     </div>
    
-  
-   
-
-   <!-- Option 1: Bootstrap Bundle with Popper -->
-   <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-      crossorigin="anonymous"></script>
+ <c:import url="./temp/header_script.jsp"></c:import>
+ 
+<script type="text/javascript">
+$("#btn1").click(function(){
+	let v = $('#v1').val()
+	console.log(v);
+	$.get("./getTest?msg="+v,function(data){
+	console.log("응답 완료");
+	console.log(data.trim());
+	});
+});
+$("#btn2").click(function(){
+	let v =$("#v1").val()
+	console.log(v);
+	$.post("./postTest",{msg:v},function(data){
+		console.log(data.trim());
+	});
+	
+});
+$("#btn3").click(function(){
+	let ar =[1,2,3];
+	let nums=[];
+	$(".num").each(function(idx,item){
+		if($(item).prop("checked")){
+			console.log($(item).val());
+			nums.push($(item).val());
+		}
+	});
+	let v =$("#v1").val();
+	$.ajax({
+		type:"POST",
+		url:"./arrayTest",
+		traditional:true,
+	    data:{
+	    	msg:v,
+	    	numbers : ar,
+	    	nums:nums
+	    },
+	    success:function(d){
+	    	console.log(d.trim());
+	    },
+	    error:function(){
+	    	alert("에러 발생");
+	    }
+	});
+});
 
 </script>
+   
+
+
 </body>
 </html>
