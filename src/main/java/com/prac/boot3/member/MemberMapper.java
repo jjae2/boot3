@@ -12,6 +12,7 @@ public interface MemberMapper {
 	public int setJoin(MemberVO memberVO)throws Exception;
 	public int setUpdate(MemberVO memberVO)throws Exception;
 	public int setDelete(MemberVO memberVO)throws Exception;
+	public int setMemberRole(MemberRoleVO memberRoleVO)throws Exception;
 	
 	//파일
 	public int setFileAdd(MemberFilesVO memberFilesVO)throws Exception;

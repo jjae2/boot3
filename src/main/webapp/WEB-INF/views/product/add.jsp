@@ -161,11 +161,11 @@ function getList(pn){
 
 
 
-$(document).ready(function() {
+
 	  $('#productDetail').summernote({
 		  height: 300
 	  });
-});
+
 
 let count1=0;
  $("#fileAdd").click(function() {

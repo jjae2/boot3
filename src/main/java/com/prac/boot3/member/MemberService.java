@@ -15,6 +15,7 @@ public class MemberService {
 	private MemberMapper memberMapper;
 	@Autowired
 	private FileManager fileManager;
+	
 
 	public MemberVO getLogin(MemberVO memberVO) throws Exception {
 		return memberMapper.getLogin(memberVO);

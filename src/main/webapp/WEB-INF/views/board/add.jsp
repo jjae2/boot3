@@ -12,6 +12,7 @@
 <!-- 에디터 -->
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+
 <title>Insert title here</title>
 </head>
 <body>
@@ -57,9 +58,47 @@
 
 
 <script type="text/javascript">
-$(document).ready(function() {
-	  $('#contents').summernote();
-});
+
+	  $('#contents').summernote({
+		  height: 400,
+		  placeholder:"내용을 입력해주세요.",
+		  callbacks:{
+			  onImageUpload:function(files){
+				 //files upload한 이미지 파일객체
+				let formData= new FormData();
+				formData.append("files",files[0]);
+				
+				//   /board/summerFileUpload
+				$.ajax({
+			        type:"POST",
+			        url :"./summerFileUpload",
+			        data:formData,
+			        processData:false,
+			        contentType:false,
+			        success:function(data){
+			        	 $('#contents').summernote('editor.insertImage',data.trim());
+			        }
+				})
+			  }, //onImageUpload 끝
+			  
+			  onMediaDelete:function(files){
+				  let fileName=$(files[0]).attr("src");
+				  console.log(fileName);
+				  $.ajax({
+					  type:"GET",
+					  url:"./summerFileDelete",
+					  data:{
+						  fileName:fileName
+					  },
+					  success:function(data){
+						  console.log(data);
+					  }
+					  
+				  });
+			  }//onMediaDelete 끝
+		  }
+	  });
+	  
 
 let count=0;
  $("#fileAdd").click(function() {
@@ -67,9 +106,9 @@ let count=0;
 	        alert('첨부파일은 최대 5개 까지만 가능합니다.');
 	        return;
 	    }
-	 let f=' <div class="row mb-3">';
-	 f=f+' <label for="contents" class="col-sm-2 col-form-label">Contents</label>';
-	 f=f+'<div class="col-sm-10">';
+	 let f='<div class="row mb-3">';
+	 f=f+'<label for="contents" class="col-sm-2 col-form-label">Contents</label>';
+ 	 f=f+'<div class="col-sm-10">';  
 	 f=f+'<div class="input-group">';
 	 f=f+'<input type="file" class="form-control" id="files" name="files" aria-describedby="inputGroupFileAddon04" aria-label="Upload">'; 
 	 f=f+'<button class="btn btn-outline-secondary del" type="button" id="inputGroupFileAddon04">X</button>';
