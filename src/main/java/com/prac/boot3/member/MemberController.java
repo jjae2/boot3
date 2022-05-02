@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
@@ -20,6 +21,21 @@ public class MemberController {
 
 	@Autowired
 	private MemberService memberService;
+	
+	@GetMapping("findId")
+	public ModelAndView findId()throws Exception{
+		ModelAndView mv =new ModelAndView();
+		mv.setViewName("member/findId");
+		return mv;
+	}
+	@PostMapping("findId")
+	public ModelAndView findId(MemberVO memberVO)throws Exception{
+		ModelAndView mv =new ModelAndView();
+		memberVO= memberService.getFindId(memberVO);
+		mv.addObject("idResult",memberVO);
+		mv.setViewName("member/findIdResult");
+		return mv;
+	}
 
 	@GetMapping("join")
 	public void setJoin() throws Exception {
@@ -32,9 +48,12 @@ public class MemberController {
 	}
 
 	@GetMapping("login")
-	public void getLogin(Model model, @CookieValue(value = "remember", defaultValue = "") String rememberId)
-			throws Exception {
-	}
+	public ModelAndView getLogin(@ModelAttribute MemberVO memberVO, @CookieValue(value = "remember", defaultValue = "") String rememberId)throws Exception {
+	ModelAndView mv = new ModelAndView();
+	//mv.addObject("vo", new MemberVO());
+	mv.setViewName("member/login");
+	return mv;
+}
 
 	@PostMapping("login")
 	public String getLogin(HttpSession session, MemberVO memberVO, String remember, Model model,

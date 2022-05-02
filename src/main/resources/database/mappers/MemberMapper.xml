@@ -22,6 +22,10 @@
    
 <!-- MEMBER -->
 
+<select id="getFindId" parameterType="MemberVO" resultType="MemberVO">
+SELECT ID FROM MEMBER WHERE EMAIL=#{email}
+</select>
+
 <select id="getMypage" parameterType="MemberVO" resultMap="mypageResult">
 SELECT M.NAME,M.EMAIL,M.PHONE,MF.*
 FROM MEMBER M
@@ -62,8 +66,6 @@ WHERE ID=#{id} AND M.PW=#{pw}
 <result column="ROLENAME" property="roleName" />
 </collection>
 </resultMap>
-
-
 
 
 <insert id="setJoin" parameterType="MemberVO">

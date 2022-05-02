@@ -22,6 +22,11 @@ public class MemberService {
 	@Value("${member.role.member}")
 	private String memberRole;
 
+	
+	public MemberVO getFindId(MemberVO memberVO)throws Exception{
+		return memberMapper.getFindId(memberVO);
+	}
+	
 	public MemberVO getLogin(MemberVO memberVO) throws Exception {
 		return memberMapper.getLogin(memberVO);
 	}

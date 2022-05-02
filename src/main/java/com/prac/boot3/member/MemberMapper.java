@@ -14,7 +14,7 @@ public interface MemberMapper {
 	public int setUpdate(MemberVO memberVO)throws Exception;
 	public int setDelete(MemberVO memberVO)throws Exception;
 	public int setRoleAdd(Map<String, String> map)throws Exception;
-	
+	public MemberVO getFindId(MemberVO memberVO)throws Exception;
 	//파일
 	public int setFileAdd(MemberFilesVO memberFilesVO)throws Exception;
 	public MemberFilesVO getFileList(MemberVO memberVO)throws Exception;
