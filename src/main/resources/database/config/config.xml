@@ -11,9 +11,11 @@
   	<typeAlias type="com.prac.boot3.board.BoardFilesVO" alias="BoardFilesVO"/>
   	<typeAlias type="com.prac.boot3.member.MemberVO" alias="MemberVO"/>
   	<typeAlias type="com.prac.boot3.member.MemberFilesVO" alias="MemberFilesVO"/>
-  	<typeAlias type="com.prac.boot3.member.MemberRoleVO" alias="MemberRoleVO"/>
+  	<typeAlias type="com.prac.boot3.member.RoleVO" alias="RoleVO"/>
   	<typeAlias type="com.prac.boot3.product.ProductVO" alias="ProductVO"/>
    	<typeAlias type="com.prac.boot3.product.ProductFilesVO" alias="ProductFilesVO"/>
   	<typeAlias type="com.prac.boot3.util.Pager" alias="Pager"/>
+  	<typeAlias type="java.util.Map" alias="Map"/>
+  	<typeAlias type="java.util.List" alias="List"/>
   	</typeAliases>
   </configuration>

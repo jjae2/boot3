@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class Pager {
-	
+	private String id;
 	
 	// DB에서 몇개씩 조회(파라미터의 값 가능)
 	private Integer perPage;

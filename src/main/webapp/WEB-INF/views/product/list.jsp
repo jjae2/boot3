@@ -6,7 +6,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
+<style type="text/css">
+.detail{
+cursor: pointer;
+}
+</style>
 <!-- Bootstrap CSS -->
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
@@ -17,12 +21,12 @@
 </head>
 <body>
 	<c:import url="../temp/header.jsp"></c:import>
-
+	<c:import url="../temp/header_script.jsp"></c:import>
 	<div class="container mt-4">
 		<div class="row row-cols-1 row-cols-md-3 g-4">
 			<c:forEach items="${list}" var="vo">
 				<div class="col">
-					<div class="card">
+					<div class="card detail" data-num="${vo.productNum}" >
 						<img src="../resources/upload/product/${vo.productFilesVO[0].fileName}"
 							class="card-img-top" alt="">
 						<div class="card-body">
@@ -80,21 +84,19 @@
 	        	<button class="btn btn-outline-success" type="submit">Search</button>
 	        	</div>
 	      </form>
-		<div class="col-1">
-			<a href="./add" type="button" class="btn btn-outline-primary">WRITE</a>
-		</div>
 		</div> 
 </div>
 </div>
 
+<script type="text/javascript">
+$(".detail").click(function(){
+let num= $(this).attr("data-num");
+location.href="./detail?productNum="+num
+});
+</script>
 
 
 
 
-
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-		integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-		crossorigin="anonymous"></script>
 </body>
 </html>

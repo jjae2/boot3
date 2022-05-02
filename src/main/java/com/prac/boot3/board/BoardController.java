@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.prac.boot3.product.ProductFilesVO;
 import com.prac.boot3.util.FileVO;
 import com.prac.boot3.util.Pager;
 
@@ -75,7 +76,7 @@ public class BoardController {
    public ModelAndView getDetail(BoardVO boardVO) throws Exception{
 	   ModelAndView mv =new ModelAndView();
 	   boardVO =boardService.getDetail(boardVO);
-	   mv.addObject("dto",boardVO);
+	   mv.addObject("vo",boardVO);
 	   mv.setViewName("board/detail");
 	   return mv;
    }
@@ -100,16 +101,24 @@ public class BoardController {
    public ModelAndView setUpdate(BoardVO boardVO)throws Exception{
 	   ModelAndView mv =new ModelAndView();
 	  boardVO = boardService.getDetail(boardVO);
-	   mv.addObject("dto",boardVO);
+	   mv.addObject("vo",boardVO);
 	   mv.setViewName("board/update");
 	   
 	   return mv;
    }
    @PostMapping("update")
-   public String setUpdate(BoardVO boardVO,Model model)throws Exception{
-	   int result=boardService.setUpdate(boardVO);
-	   return "redirect:./list";
-   }
+   public ModelAndView setUpdate(BoardVO boardVO,MultipartFile[] files )throws Exception{
+	   ModelAndView mv =new ModelAndView();
+	   int result=boardService.setUpdate(boardVO,files);	   
+	   if(result>0) {
+		   mv.setViewName("redirect:./list");
+	   }else {
+		   mv.setViewName("common/getResult");
+		   mv.addObject("msg","업데이트 실패 했습니다.");
+		   mv.addObject("path","./detail?num="+boardVO.getNum());
+	   }
+	   return mv;
+   } 
    @GetMapping("delete")
    public ModelAndView setDelete(BoardVO boardVO)throws Exception{
 	   int result= boardService.setDelete(boardVO);
@@ -117,4 +126,15 @@ public class BoardController {
 	   mv.setViewName("redirect:./list");
 	   return mv;
    }
+   
+	@PostMapping("fileDelete")
+	public ModelAndView setFileDelete(BoardFilesVO boardFilesVO)throws Exception{
+		ModelAndView mv =new ModelAndView();
+		int result= boardService.setFileDelete(boardFilesVO);
+		
+		mv.addObject("msg",result);
+		mv.setViewName("common/result2");
+		return mv;
+	}
+	
 }

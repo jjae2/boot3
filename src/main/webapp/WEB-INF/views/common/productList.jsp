@@ -9,6 +9,7 @@
 			<th>price</th>
 			<th>count</th>
 			<th>detail</th>
+			<th>sale</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -17,10 +18,13 @@
 <c:forEach items="${list}" var="vo">
 		<tr>
 		<td>${vo.productNum}</td>
-		<td>${vo.productName}</td>
+		<td class="detail" data-num="${vo.productNum}">${vo.productName}</td>
 		<td>${vo.productPrice}</td>
 		<td>${vo.productCount}</td>
 		<td>${vo.productDetail}</td>
+		<td>${vo.sale == 1 ? '판매 중':'판매중지'}</td>
+		
+		
 		</tr>
 </c:forEach>
 </tbody>
@@ -45,4 +49,12 @@
 			</ul>
 		</nav>
 	</div>
+	
+	
+<script type="text/javascript">
+$(".detail").click(function(){
+let num= $(this).attr("data-num");
+location.href="./manageDetail?productNum="+num
+});
+</script>
 	

@@ -6,7 +6,7 @@
     
 <mapper namespace="com.prac.boot3.board.BoardMapper">
    <!-- boardfiles  -->
-   <select id="getFileDetail" parameterType="BoardFilesVO" resultType="BoardFilesVO">
+	<select id="getFileDetail" parameterType="BoardFilesVO" resultType="BoardFilesVO">
       SELECT * FROM BOARDFILES WHERE FILENUM=#{fileNum}
    </select>
    <select id="getFileList" resultType="BoardFilesVO">
@@ -42,7 +42,7 @@
    <result column="depth" property="depth"/>
    <result column="category" property="category"/>
    
-   <collection property="boardFilesVO" javaType="java.util.List" ofType="BoardFilesVO">
+   <collection property="boardFilesVO" javaType="List" ofType="BoardFilesVO">
    <id column="fileNum" property="fileNum"/>
    <result column="fileName" property="fileName"/>
    <result column="oriName" property="oriName"/>

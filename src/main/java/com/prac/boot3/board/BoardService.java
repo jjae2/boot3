@@ -7,6 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.prac.boot3.product.ProductFilesVO;
+import com.prac.boot3.product.ProductVO;
 import com.prac.boot3.util.FileManager;
 import com.prac.boot3.util.Pager;
 
@@ -18,6 +21,55 @@ public class BoardService {
    private BoardMapper boardMapper;
    @Autowired
    private FileManager fileManager;
+   
+	public int setUpdate(BoardVO boardVO, MultipartFile [] multipartFiles)throws Exception{
+		int result = boardMapper.setUpdate(boardVO);
+		
+		if(multipartFiles != null) {
+			
+			for(MultipartFile multipartFile: multipartFiles) {
+				if(multipartFile.isEmpty()) {
+					continue;
+				}
+				
+				BoardFilesVO boardFilesVO =new BoardFilesVO();
+						
+				String fileName =fileManager.fileSave(multipartFile, "/resources/upload/board/");
+				boardFilesVO.setFileName(fileName);
+				boardFilesVO.setOriName(multipartFile.getOriginalFilename());
+				boardFilesVO.setNum(boardVO.getNum());
+				result = boardMapper.setFileAdd(boardFilesVO);			
+			}	
+		}
+	
+		return result;
+}
+	
+   
+   public int setFileDelete(BoardFilesVO boardFilesVO) throws Exception{
+	      //DB에서 조회(삭제하려는 file)
+	   boardFilesVO=boardMapper.getFileDetail(boardFilesVO);
+	      
+	      /* 방법1 (hdd먼저 지우고 성공하면 db지우기)
+	      //HDD삭제  -> 트랜잭션에 포함x
+	      boolean result = fileManager.remove(productFilesVO.getFileName(), "../resources/upload/product/");
+	      
+	      //DB삭제 
+	      if(result) { //삭제가 성공하면, db에서 지움
+	          productMapper.setFileDelete(productFilesVO);
+	      }*/
+	      
+	            
+	      //방법2 db에서 삭제가 되면 그때, hdd에 지우러 감
+	      int check=boardMapper.setFileDelete(boardFilesVO);
+	      if(check>0) {
+	         boolean result = fileManager.remove(boardFilesVO.getFileName(), "../resources/upload/board/");
+	      }
+	      
+	      return check;
+	   }
+	
+   
    
    public boolean setSummerFileDelete(String fileName)throws Exception{
 	   fileName=fileName.substring(fileName.lastIndexOf("/")+1);
@@ -33,21 +85,18 @@ public class BoardService {
 	   fileName="/resources/upload/board/"+fileName;
 	   return fileName;
    }
-   
-   //file
+   //파일 다운로드할때 필요
    public BoardFilesVO getFileDetail(BoardFilesVO boardFilesVO)throws Exception{
 	   return boardMapper.getFileDetail(boardFilesVO);
    }
   
-   //list : getList
    public List<BoardVO> getList(Pager pager)throws Exception{
       pager.makeRow();
       pager.makeNum(boardMapper.getTotalCount(pager));
       
       return boardMapper.getList(pager);
    }
-   //detail : getdetail
-   
+ 
 	public BoardVO getDetail(BoardVO boardVO) throws Exception {
 		return boardMapper.getDetail(boardVO);
 	}

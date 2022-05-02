@@ -10,13 +10,13 @@ import com.prac.boot3.util.Pager;
 public interface BoardMapper {
    
    //files
-   //detail : getFileDetaile
+   //detail : getFileDetaile 다운로드 할때 필요
    public BoardFilesVO getFileDetail(BoardFilesVO boardFilesVO) throws Exception;
-   //list : getFileList
+   //list : getFileList 딜리트 할때 필요
    public List<BoardFilesVO> getFileList(BoardVO boardVO) throws Exception;
    //insert : setFileAdd
    public int setFileAdd(BoardFilesVO boardFilesVO) throws Exception;
-   //delete : setFileDelete
+   //delete : setFileDelete 
    public int setFileDelete(BoardFilesVO boardFilesVO) throws Exception;
    
    //board

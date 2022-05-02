@@ -1,6 +1,7 @@
 package com.prac.boot3.member;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -12,7 +13,7 @@ public interface MemberMapper {
 	public int setJoin(MemberVO memberVO)throws Exception;
 	public int setUpdate(MemberVO memberVO)throws Exception;
 	public int setDelete(MemberVO memberVO)throws Exception;
-	public int setMemberRole(MemberRoleVO memberRoleVO)throws Exception;
+	public int setRoleAdd(Map<String, String> map)throws Exception;
 	
 	//파일
 	public int setFileAdd(MemberFilesVO memberFilesVO)throws Exception;

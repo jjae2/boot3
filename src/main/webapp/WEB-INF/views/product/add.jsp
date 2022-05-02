@@ -59,8 +59,21 @@
 		    <div class="col-sm-10">
 		      <textarea name="productDetail" class="form-control" id="productDetail"></textarea>
 		    </div>
-		  </div>
+			</div>
 		  
+	<div class="form-check">
+  <input class="form-check-input sale" type="radio" value="1" name="sale">
+  <label class="form-check-label" for="sale1">
+    판매
+  </label>
+</div>
+<div class="form-check">
+  <input class="form-check-input sale" type="radio" value="0" name="sale" checked>
+  <label class="form-check-label" for="sale0">
+    판매중지
+  </label>
+</div>
+
 		  <div id="fileResult"></div>
 		  
 		  <button type="button" id="fileAdd" class="btn btn-danger d-block my-4">FileADD</button>
@@ -69,9 +82,12 @@
 	</form>
 	</div>	
 </div>	
-
+<script type="text/javascript" src="../resources/js/fileAdd.js"></script> <!-- fileAdd -->
+<script type="text/javascript" src="../js/summernote.js"></script>   <!-- summernote -->
 
 <script type="text/javascript">
+fileAddInit(0);
+summernoteInit("productDetail","");
 
 //pager
 //let pn=1;
@@ -112,6 +128,12 @@ function getList(pn){
 	    let price=$("#productPrice").val();
 	    let count=$("#productCount").val();
 	    let detail=$("#productDetail").summernote("code");    //$("#detail").val();
+	    let sale=0;
+	    $(".sale").each(function(idx,item){
+	    	if($(item).prop("checked")){
+	    		sale =$(item).val();
+	    	}
+	    })
          $(".files").each(function(idx,item){
         	 if(item.files.length>0){
             console.log(idx);            //index번호
@@ -128,6 +150,7 @@ function getList(pn){
          formData.append("productPrice",price);
          formData.append("productCount",count);
          formData.append("productDetail",detail);
+         formData.append("sale",sale);
 
     $.ajax({
         type:"POST",
@@ -157,42 +180,7 @@ function getList(pn){
        }
     });
  }); 
- 
 
-
-
-
-	  $('#productDetail').summernote({
-		  height: 300
-	  });
-
-
-let count1=0;
- $("#fileAdd").click(function() {
-	 if(count1>4){
-	        alert('첨부파일은 최대 5개 까지만 가능합니다.');
-	        return;
-	    }
-	 let f=' <div class="row mb-3">';
-	 f=f+' <label for="contents" class="col-sm-2 col-form-label">Contents</label>';
-	 f=f+'<div class="col-sm-10">';
-	 f=f+'<div class="input-group">';
-	 f=f+'<input type="file" class="form-control files" id="files" name="files" aria-describedby="inputGroupFileAddon04" aria-label="Upload">'; 
-	 f=f+'<button class="btn btn-outline-secondary del" type="button" id="inputGroupFileAddon04">X</button>';
-	 f=f+'</div>';
-	 f=f+'</div>';
-	 f=f+'</div>';
-	 count1++;
-	 
-	$("#fileResult").append(f)
-});
-	//속성 안에 ""이 있어서 ''으로 묶는다
-
-	$("#fileResult").on("click", ".del",function(){
-		$(this).parent().parent().parent().remove();
-		count--;
-	});
-  
 </script>
 
 

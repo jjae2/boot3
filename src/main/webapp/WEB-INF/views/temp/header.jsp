@@ -23,6 +23,20 @@
 					<li class="nav-item">
 						<a class="nav-link active" href="/product/list">Product</a>
 					</li>
+					<c:forEach items="${member.roleVOs}" var ="vo">
+					<c:if test="${vo.roleName eq 'ROLE_SELLER'}">
+					<li class="nav-item">
+						<a class="nav-link active" href="/product/manage">Product관리</a>
+					</li>
+					</c:if>
+					</c:forEach>
+					<c:forEach items="${member.roleVOs}" var ="vo">
+					<c:if test="${vo.roleName eq 'ROLE_ADMIN'}">
+					<li class="nav-item">
+						<a class="nav-link active" href="/admin/manage">관리자 모드</a>
+					</li>
+					</c:if>
+					</c:forEach>
 					<li class="nav-item dropdown">
 					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Dropdown </a>
 						<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -41,18 +55,15 @@
 						<a class="nav-link active" href="/member/join">Join</a>
 					</li>						
 					</c:if>
-					</ul>
 					<c:if test="${not empty member}">
-					<li class="nav-item">
-						<h3>${member.id}님 환영합니다.</h3>
-					</li>
 					<li class="nav-item">
 						<a class="nav-link active" href="/member/mypage">Mypage</a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link active" href="/member/logout">Logout</a>
 					</li>
-					</c:if>		
+					</c:if>	
+					</ul>	
 	
 				<form class="d-flex">
 					<input class="form-control me-2" type="search" placeholder="Search"
