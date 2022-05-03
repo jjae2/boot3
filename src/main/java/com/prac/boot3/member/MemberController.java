@@ -3,10 +3,13 @@ package com.prac.boot3.member;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -38,11 +41,22 @@ public class MemberController {
 	}
 
 	@GetMapping("join")
-	public void setJoin() throws Exception {
+	public ModelAndView setJoin(@ModelAttribute MemberVO memberVO) throws Exception {
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("member/join");
+		return mv;
 	}
 
 	@PostMapping("join")
-	public String setJoin(MemberVO memberVO, MultipartFile profile) throws Exception {
+	public String setJoin(@Valid MemberVO memberVO, BindingResult bindingResult, MultipartFile profile) throws Exception {
+		
+//		if(bindingResult.hasErrors()) {
+//			return "member/join";
+//		}
+		//사용자 정의 검증 메서드 호출
+		if(memberService.memberError(memberVO, bindingResult)) {
+			return "member/join"; 
+		}
 		int result = memberService.setJoin(memberVO, profile);
 		return "redirect:../";
 	}
@@ -56,8 +70,10 @@ public class MemberController {
 }
 
 	@PostMapping("login")
-	public String getLogin(HttpSession session, MemberVO memberVO, String remember, Model model,
+	public String getLogin( MemberVO memberVO, HttpSession session, String remember, Model model,
 			HttpServletResponse response) throws Exception {
+
+		
 		if (remember != null && remember.equals("1")) {
 			// 쿠키생성
 			Cookie cookie = new Cookie("remember", memberVO.getId());

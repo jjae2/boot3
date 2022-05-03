@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <!DOCTYPE html>
 <html>
@@ -30,18 +31,28 @@ text-align: center;
 	<c:import url="../temp/header_script.jsp"></c:import>
 <div class="all">
 <h1> 로그인 </h1>
-<form action="./login" method="post">
+
+<!--  html 폼 태그 대신 spring 폼 태그 사용 -->
+<form:form modelAttribute="memberVO" method="post">
   <!-- Email input -->
   <div class="form-outline mb-4">
     <label class="form-label" for="form2Example1">아이디</label>
-    <input type="text" id="form2Example1" name="id" value="${cookie.remember.value}" class="form-control" />
+   <%--  <input type="text" id="form2Example1" name="id" value="${cookie.remember.value}" class="form-control" /> --%>
+ 	<form:input path="id" cssClass="form-control" id="id"/>
+  <div>
+  <form:errors path="id"></form:errors>
   </div>
+</div>
 
   <!-- Password input -->
   <div class="form-outline mb-4">
     <label class="form-label" for="form2Example2">비밀번호</label>
-    <input type="password" id="form2Example2" name="pw" class="form-control" />
+ <!--    <input type="password" id="form2Example2" name="pw" class="form-control" /> -->
+ <form:password path="pw" cssClass="form-control" id="pw"/>
+  <div>
+  <form:errors path="pw" cssStyle="color:red;"></form:errors>
   </div>
+</div>
 
   <!-- 2 column grid layout for inline styling -->
   <div class="row mb-4">
@@ -68,7 +79,7 @@ text-align: center;
   <button type="button" id="find" class="btn btn-primary btn-block mb-4">ID 찾기</button>
   </div>
   
-</form>
+</form:form>
 </div>
 
      <script type="text/javascript">

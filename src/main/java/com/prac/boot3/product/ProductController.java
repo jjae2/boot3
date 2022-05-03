@@ -3,11 +3,14 @@ package com.prac.boot3.product;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
@@ -68,15 +71,20 @@ public class ProductController {
 		return mv;
 	}
 	@GetMapping("add")
-	 public ModelAndView setAdd(ProductVO productVO, ModelAndView mv)throws Exception{
-	      mv.setViewName("product/add");
-	      return mv;
+	 public ModelAndView setAdd(@ModelAttribute ProductVO productVO)throws Exception{
+		ModelAndView mv =new ModelAndView();
+		mv.setViewName("product/add");
+	    return mv;
 	}
 	@PostMapping("add")
-	public ModelAndView setAdd(ProductVO productVO,MultipartFile[] files, HttpSession session)throws Exception{
+	public ModelAndView setAdd(@Valid ProductVO productVO,BindingResult bindingResult,MultipartFile[] files, HttpSession session)throws Exception{
+		ModelAndView mv =new ModelAndView();
+		if(bindingResult.hasErrors()) {
+			mv.setViewName("product/add");
+			return mv;
+		}
 		MemberVO memberVO = (MemberVO)session.getAttribute("member");
 		productVO.setId(memberVO.getId());
-		ModelAndView mv =new ModelAndView();
 		int result=productService.setAdd(productVO,files);
 		mv.setViewName("common/result2");
 		mv.addObject("result",result);

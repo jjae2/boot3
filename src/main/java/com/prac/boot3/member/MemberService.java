@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.prac.boot3.util.FileManager;
@@ -21,7 +22,28 @@ public class MemberService {
 	//properties 파일의 member.role.member 속성값을 반환해서 갖고온다
 	@Value("${member.role.member}")
 	private String memberRole;
-
+	
+	//사용자 정의 검증 메서드 선언
+	public boolean memberError(MemberVO memberVO, BindingResult bindingResult)throws Exception{
+		boolean check=false;
+		//check= false :: 검증 성공 (error 없음)
+		//check= true :: 검증 실패 (error 있음)
+		
+		//1.annotation 기본 검증 결과
+		check = bindingResult.hasErrors();
+		//2. password 일치하는 지 수동 검증
+		if(!memberVO.getPw().equals(memberVO.getCheckPw())) {
+			check=true;
+			bindingResult.rejectValue("checkPw", "member.password.notEqul");
+		}
+		//3. id 일치하는 지 수동 검증
+		MemberVO idCheck=memberMapper.getId(memberVO);
+		if(idCheck!=null) {
+			check=true;
+			bindingResult.rejectValue("id", "member.id.notEqul");
+		}
+		return check;
+	}
 	
 	public MemberVO getFindId(MemberVO memberVO)throws Exception{
 		return memberMapper.getFindId(memberVO);

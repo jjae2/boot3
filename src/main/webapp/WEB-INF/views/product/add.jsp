@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -34,52 +35,63 @@
 	
 	
 	<div class="row mt-4">
-		<form action="add" method="post" enctype="multipart/form-data" id="addform">
-		
+		<!-- <form action="add" method="post" enctype="multipart/form-data" id="addform"> -->
+		<form:form modelAttribute="productVO" method="post" enctype="multipart/form-data" id="addform">
 		  <div class="row mb-3">
 		    <label for="productName" class="col-sm-2 col-form-label">Name</label>
 		    <div class="col-sm-10">
-		      <input type="text" name="productName" class="form-control" id="productName">
+		    <!-- <input type="text" name="productName" class="form-control" id="productName"> -->
+		    <form:input path="productName" cssClass="form-control" id="productName"/>
 		    </div>
+		    <div><form:errors path="productName"></form:errors></div>
 		  </div>
 		  <div class="row mb-3">
 		    <label for="productPrice" class="col-sm-2 col-form-label">Price</label>
 		    <div class="col-sm-10">
-		      <input type="text" name="productPrice" class="form-control" id="productPrice">
+		      <!-- <input type="text" name="productPrice" class="form-control" id="productPrice"> -->
+		      <form:input path="productPrice" cssClass="form-control" id="productPrice"/>
 		    </div>
+		    <div><form:errors path="productPrice"></form:errors></div>
 		  </div>
 		 <div class="row mb-3">
 		    <label for="productCount" class="col-sm-2 col-form-label">Count</label>
 		    <div class="col-sm-10">
-		      <input type="text" name="productCount" class="form-control" id="productCount">
+		     <!--  <input type="text" name="productCount" class="form-control" id="productCount"> -->
+		     <form:input path="productCount" cssClass="form-control" id="productCount"/>
 		    </div>
+		    <div><form:errors path="productCount"></form:errors></div>
 		  </div>
 		   <div class="row mb-3">
 		    <label for="productDetail" class="col-sm-2 col-form-label">Detail</label>
 		    <div class="col-sm-10">
-		      <textarea name="productDetail" class="form-control" id="productDetail"></textarea>
+		<!--<textarea name="productDetail" class="form-control" id="productDetail"></textarea> -->
+		    <form:textarea path="productDetail" cssClass="form-control" id="productDetail"/>
 		    </div>
-			</div>
+		    <div><form:errors path="productDetail"></form:errors></div>
+		  </div>
 		  
 	<div class="form-check">
-  <input class="form-check-input sale" type="radio" value="1" name="sale">
+  <!-- <input class="form-check-input sale" type="radio" value="1" name="sale"> -->
+  <form:radiobutton path="sale" cssClass="form-check-input sale"  value="1" id="sale1"/>
   <label class="form-check-label" for="sale1">
     판매
   </label>
 </div>
 <div class="form-check">
-  <input class="form-check-input sale" type="radio" value="0" name="sale" checked>
+<!--   <input class="form-check-input sale" type="radio" value="0" name="sale" checked> -->
+    <form:radiobutton path="sale" cssClass="form-check-input sale" value="0" id="sale0"/>
   <label class="form-check-label" for="sale0">
     판매중지
   </label>
+  <div><form:errors path="sale"></form:errors></div>
 </div>
 
 		  <div id="fileResult"></div>
 		  
 		  <button type="button" id="fileAdd" class="btn btn-danger d-block my-4">FileADD</button>
 		  
-		  <button type="button" class="btn btn-primary" id="add">Write</button>
-	</form>
+		  <button type="submit" class="btn btn-primary" id="add2">Write</button>
+	</form:form>
 	</div>	
 </div>	
 <script type="text/javascript" src="../resources/js/fileAdd.js"></script> <!-- fileAdd -->

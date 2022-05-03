@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,38 +29,66 @@ text-align: center;
 <body>
 <div class="all">
 <h1> 회원가입 </h1>
-<form action="./join" method="post" enctype="multipart/form-data">
+<form:form modelAttribute="memberVO" method="post" enctype="multipart/form-data">
   <!-- Email input -->
   <div class="form-outline mb-4">
-    <label class="form-label" for="form2Example1">아이디</label>
-    <input type="text" id="form2Example1" name="id" class="form-control" />
+    <label class="form-label" for="id">아이디</label>
+   <!--  <input type="text" id="form2Example1" name="id" class="form-control" /> -->
+    <form:input path="id" cssClass="form-control" id="id"/>
+    <div>
+    <form:errors path="id" cssStyle="color:red;"></form:errors>
+    </div>
   </div>
 
   <!-- Password input -->
   <div class="form-outline mb-4">
-    <label class="form-label" for="form2Example2">비밀번호</label>
-    <input type="password" id="form2Example2" name="pw" class="form-control" />
-  </div>
-  <div class="form-outline mb-4">
-    <label class="form-label" for="form2Example3">이름</label>
-    <input type="text" id="form2Example3" name="name" class="form-control" />
-  </div>
-  <div class="form-outline mb-4">
-    <label class="form-label" for="form2Example4">이메일</label>
-    <input type="text" id="form2Example4" name="email" class="form-control" />
-  </div>
-  <div class="form-outline mb-4">
-    <label class="form-label" for="form2Example5">전화번호</label>
-    <input type="text" id="form2Example5" name="phone" class="form-control" />
+    <label class="form-label" for="pw">비밀번호</label>
+   <!--  <input type="password" id="form2Example2" name="pw" class="form-control" /> -->
+    <form:password path="pw" cssClass="form-control" id="pw"/>
+    <div>
+    <form:errors path="pw" cssStyle="color:red;"></form:errors>
+    </div>
   </div>
     <div class="form-outline mb-4">
-    <label class="form-label" for="form2Example6">프로필</label>
+    <label class="form-label" for="checkPw">비밀번호 체크</label>
+    <form:password path="checkPw" cssClass="form-control" id="checkPw"/>
+    <div>
+    <form:errors path="checkPw" cssStyle="color:red;"></form:errors>
+    </div>
+  </div>
+  
+  <div class="form-outline mb-4">
+    <label class="form-label" for="name">이름</label>
+   <!--  <input type="text" id="form2Example3" name="name" class="form-control" /> -->
+    <form:input path="name" cssClass="form-control" id="name"/>
+    <div>
+    <form:errors path="name" cssStyle="color:blue;"></form:errors>
+    </div>
+  </div>
+  <div class="form-outline mb-4">
+    <label class="form-label" for="email">이메일</label>
+    <!-- <input type="text" id="form2Example4" name="email" class="form-control" /> -->
+    <form:input path="email" cssClass="form-control" id="email"/>
+    <div>
+    <form:errors path="email" cssStyle="color:blue;"></form:errors>
+    </div>
+  </div>
+  <div class="form-outline mb-4">
+    <label class="form-label" for="phone">전화번호</label>
+    <!-- <input type="text" id="form2Example5" name="phone" class="form-control" /> -->
+    <form:input path="phone" cssClass="form-control" id="phone"/>
+        <div>
+    <form:errors path="phone" cssStyle="color:blue;"></form:errors>
+    </div>
+  </div>
+    <div class="form-outline mb-4">
+    <label class="form-label" for="profile">프로필</label>
     <input type="file" id="form2Example6" name="profile" class="form-control" />
   </div>
 
   <!-- Submit button -->
   <button type="submit" class="btn btn-primary btn-block mb-4">Join</button>
-</form>
+</form:form>
 
 
 
