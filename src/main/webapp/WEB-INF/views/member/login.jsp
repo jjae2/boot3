@@ -38,7 +38,7 @@ text-align: center;
   <div class="form-outline mb-4">
     <label class="form-label" for="form2Example1">아이디</label>
    <%--  <input type="text" id="form2Example1" name="id" value="${cookie.remember.value}" class="form-control" /> --%>
- 	<form:input path="id" cssClass="form-control" id="id"/>
+ 	<form:input path="id" cssClass="form-control" id="id" value="${cookie.remember.value}"/>
   <div>
   <form:errors path="id"></form:errors>
   </div>

@@ -1,5 +1,7 @@
 package com.prac.boot3.product;
 
+import java.sql.SQLException;
+import java.util.InputMismatchException;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -9,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -134,5 +137,37 @@ public class ProductController {
 		mv.setViewName("common/result2");
 		return mv;
 	}
+	
+	//예외처리 메서드
+//	@ExceptionHandler(InputMismatchException.class)
+//	public ModelAndView ex1() {
+//		ModelAndView mv = new ModelAndView();
+//		System.out.println("예외 발생 처리");
+//		mv.setViewName("error/error");
+//		return mv;
+//	}
+//	@ExceptionHandler(NullPointerException.class)
+//	public ModelAndView ex2() {
+//		ModelAndView mv = new ModelAndView();
+//		System.out.println("NullPointer 예외 발생 처리");
+//		mv.setViewName("error/error");
+//		return mv;
+//	}
+//	@ExceptionHandler(Exception.class)//부모 타입 Exception
+//	public ModelAndView ex3() {
+//		ModelAndView mv = new ModelAndView();
+//		System.out.println("Exception 예외 발생 처리");
+//		mv.setViewName("error/error");
+//		return mv;
+//	}
+//	@ExceptionHandler(Throwable.class)//최상위 부모 타입 Exception
+//	public ModelAndView ex4() {
+//		ModelAndView mv = new ModelAndView();
+//		System.out.println("Exception 예외 발생 처리");
+//		mv.setViewName("error/error");
+//		return mv;
+//	}
+	
+	
 	
 }

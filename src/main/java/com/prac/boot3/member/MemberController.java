@@ -62,7 +62,7 @@ public class MemberController {
 	}
 
 	@GetMapping("login")
-	public ModelAndView getLogin(@ModelAttribute MemberVO memberVO, @CookieValue(value = "remember", defaultValue = "") String rememberId)throws Exception {
+	public ModelAndView getLogin(MemberVO memberVO,@CookieValue(value = "remember", defaultValue = "") String rememberId)throws Exception {
 	ModelAndView mv = new ModelAndView();
 	//mv.addObject("vo", new MemberVO());
 	mv.setViewName("member/login");
@@ -73,7 +73,6 @@ public class MemberController {
 	public String getLogin( MemberVO memberVO, HttpSession session, String remember, Model model,
 			HttpServletResponse response) throws Exception {
 
-		
 		if (remember != null && remember.equals("1")) {
 			// 쿠키생성
 			Cookie cookie = new Cookie("remember", memberVO.getId());
